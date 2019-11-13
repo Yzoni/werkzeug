@@ -222,8 +222,8 @@ def parse_rule(rule):
         pos = m.end()
     if pos < end:
         remaining = rule[pos:]
-        if ">" in remaining or "<" in remaining:
-            raise ValueError("malformed url rule: %r" % rule)
+        # if ">" in remaining or "<" in remaining:
+        #     raise ValueError("malformed url rule: %r" % rule)
         yield None, None, remaining
 
 
@@ -764,6 +764,7 @@ class Rule(RuleFactory):
         def _build_regex(rule):
             index = 0
             for converter, arguments, variable in parse_rule(rule):
+                converter = None
                 if converter is None:
                     regex_parts.append(re.escape(variable))
                     self._trace.append((False, variable))
